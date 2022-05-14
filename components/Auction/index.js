@@ -8,10 +8,9 @@ const Auction = ({ story, pledges, blok }) => {
   console.log(story, pledges, blok);
   return (
     <>
-      <AuctionHeader story={blok}/>
+      <AuctionHeader story={blok} />
       <AuctionFeedHeader pledges={pledges}></AuctionFeedHeader>
-      <>
-      </>
+      <></>
       {pledges.length ? (
         <div className="max-w-xl mx-auto">
           <AuctionFeed pledges={pledges} />

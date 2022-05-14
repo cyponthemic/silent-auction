@@ -7,13 +7,15 @@ import Grid from "../components/Grid";
 import Page from "../components/Page";
 import Teaser from "../components/Teaser";
 import Auction from "../components/Auction";
+import AuctionListing from "../components/AuctionListing";
 
 const components = {
   feature: Feature,
   grid: Grid,
   teaser: Teaser,
   page: Page,
-  auction: Auction
+  auction: Auction,
+  AuctionListing
 };
 
 storyblokInit({

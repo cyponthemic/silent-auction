@@ -11,13 +11,9 @@ const Auction = ({ story, pledges, blok }) => {
       <AuctionHeader story={blok} />
       <AuctionFeedHeader pledges={pledges}></AuctionFeedHeader>
       <></>
-      {pledges.length ? (
-        <div className="max-w-xl mx-auto">
-          <AuctionFeed pledges={pledges} />
-        </div>
-      ) : (
-        <div className="container mx-auto text-center">No bids yet</div>
-      )}
+      <div className="max-w-xl mx-auto">
+        <AuctionFeed pledges={pledges} />
+      </div>
       <AuctionForm story={story} pledges={pledges} />
       <main {...storyblokEditable(blok)}>
         {blok?.body?.map((nestedBlok) => (

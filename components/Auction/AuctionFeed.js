@@ -3,12 +3,19 @@ import { CheckIcon, ThumbUpIcon, UserIcon } from "@heroicons/react/solid";
 import Moment from "moment";
 import { getMinimumBid } from "../../helpers/pledges";
 import { orderBy } from "lodash-es";
+import { useAuctionContext } from "../../lib/context/auction";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function AuctionFeed({ pledges }) {
+  const auction = useAuctionContext();
+
+  console.log("auction context", auction);
+
+  return <div className="container mx-auto text-center">No bids yet</div>;
+
   const timeline = orderBy(
     pledges,
     [(pledge) => Number(pledge.content.amount)],

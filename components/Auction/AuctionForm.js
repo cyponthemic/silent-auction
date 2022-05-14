@@ -14,7 +14,7 @@
   }
   ```
 */
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 import { useState, useRef } from "react";
 import { Switch } from "@headlessui/react";
@@ -27,8 +27,8 @@ function classNames(...classes) {
 export default function AuctionForm({ story, pledges }) {
   const [agreed, setAgreed] = useState(false);
   const formElem = useRef(null);
-  const min = getMinimumBid(pledges)
-  const router = useRouter()
+  const min = getMinimumBid(pledges);
+  const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(formElem.current);
@@ -41,17 +41,19 @@ export default function AuctionForm({ story, pledges }) {
       emailAddress: formData.get("email"),
     };
 
-    fetch('/api/post', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(pledge)
-    }).then(()=>{        
-        router.reload(window.location.pathname)
-    }).catch(()=>{    
-        router.reload(window.location.pathname)
+    fetch("/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pledge),
     })
+      .then(() => {
+        router.reload(window.location.pathname);
+      })
+      .catch(() => {
+        router.reload(window.location.pathname);
+      });
   };
 
   return (
@@ -173,7 +175,7 @@ export default function AuctionForm({ story, pledges }) {
                   className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
                 />
               </div>
-            </div>        
+            </div>
             <div className="sm:col-span-2">
               <label
                 htmlFor="email"
@@ -220,9 +222,9 @@ export default function AuctionForm({ story, pledges }) {
                   placeholder="04"
                 />
               </div>
-            </div>     
+            </div>
             <div className="sm:col-span-2">
-            <label
+              <label
                 htmlFor="price"
                 className="block text-sm font-medium text-gray-700"
               >
@@ -237,7 +239,7 @@ export default function AuctionForm({ story, pledges }) {
                   min={min}
                   name="price"
                   id="price"
-                  onChange={()=>{}}
+                  onChange={() => {}}
                   value={min + 1}
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-full py-3 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
                   placeholder="0.00"

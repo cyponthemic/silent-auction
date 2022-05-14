@@ -12,7 +12,11 @@ export default function Page({ story, pledges }) {
   pledges = useStoryblokState(pledges);
   return (
     <div className={styles.container}>
-      <StoryblokComponent story={story} blok={story.content} pledges={pledges} />
+      <StoryblokComponent
+        story={story}
+        blok={story.content}
+        pledges={pledges}
+      />
     </div>
   );
 }
@@ -27,7 +31,7 @@ export async function getStaticProps({ params }) {
   const storyblokApi = getStoryblokApi();
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
 
-  console.log( data.story.uuid)
+  console.log(data.story.uuid);
   let { data: pledges } = await storyblokApi.get(`cdn/stories/`, {
     starts_with: "pledges/",
     per_page: 3,

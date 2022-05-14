@@ -5,7 +5,7 @@ const Storyblok = new StoryblokClient({
   oauthToken: process.env.STORYBLOK_BACKEND_TOKEN,
 });
 export default function handler(req, res) {
-  if (req.method === "POST") {    
+  if (req.method === "POST") {
     // use the universal js client to perform the request
     return Storyblok.post("spaces/156827/stories/", {
       story: {
@@ -16,7 +16,7 @@ export default function handler(req, res) {
       },
       publish: 1,
     })
-      .then((response) => {      
+      .then((response) => {
         return res.status(200).json({ response });
       })
       .catch((error) => {

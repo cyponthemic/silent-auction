@@ -1,22 +1,10 @@
 import Joi from "joi";
 import prisma from "../../../../lib/prisma";
-import parsePhoneNumber, { isValidPhoneNumber } from "libphonenumber-js";
 import { formatCentsToDollars } from "../../../../lib/money/format";
 import { sendSms } from "../../../../lib/sms";
+import { getCreateBidSchema } from "../../../../lib/services/bid";
 
-const schema = Joi.object({
-  name: Joi.string().min(1).max(100).required(),
-  phone: Joi.string()
-    .required()
-    .custom((value) => {
-      if (!isValidPhoneNumber(value, "AU")) {
-        throw new Error("Please enter a valid phone number");
-      }
-      return parsePhoneNumber(value, "AU").formatInternational();
-    }),
-  amount: Joi.number().integer().positive().required(),
-  notifyOnChange: Joi.boolean().default(false),
-});
+const createBidSchema = getCreateBidSchema(Joi);
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -29,11 +17,19 @@ export default async function handler(req, res) {
     body,
   } = req;
 
-  const data = schema.validate(body);
+  const data = createBidSchema.validate(body);
   const { value, error } = data;
 
   if (error) {
     return res.status(422).json(error.message);
+  }
+
+  const auctionItem = await prisma.auctionItem.findUnique({
+    where: { id: auctionItemId },
+  });
+
+  if (!auctionItem) {
+    return res.status(404).json("Not found");
   }
 
   try {
@@ -45,11 +41,11 @@ export default async function handler(req, res) {
           orderBy: { amount: "desc" },
         });
 
-        // Make sure the new bid is higher
-        if (value.amount <= highestBid.amount) {
+        // Make sure the new bid is $5 higher
+        if (value.amount < highestBid.amount + 500) {
           const dollars = formatCentsToDollars(highestBid.amount);
           throw new Error(
-            `Please enter a bid that's higher the current bid of ${dollars}`
+            `Please enter a bid that's at least $5 higher the current bid of ${dollars}`
           );
         }
 
@@ -69,7 +65,7 @@ export default async function handler(req, res) {
         );
         await sendSms(
           previousHighest.phone,
-          `Your bid was beaten by ${difference}`
+          `Your bid for "${auctionItem.name}" has been beaten by ${difference}`
         );
       } catch (e) {
         console.error("Failed to send SMS", e);
@@ -77,7 +73,7 @@ export default async function handler(req, res) {
     }
 
     // Respond with created item
-    return res.status(200).json({ previousHighest, newBid });
+    return res.status(200).json(newBid);
   } catch (e) {
     return res.status(400).json(e.message);
   }

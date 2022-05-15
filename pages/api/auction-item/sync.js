@@ -24,12 +24,34 @@ export default async function handler(req, res) {
     name: story.name,
   }));
 
-  await prisma.$transaction([
-    prisma.auctionItem.deleteMany(),
-    prisma.auctionItem.createMany({
-      data: auctionItems,
-    }),
-  ]);
+  const actions = [
+    // Upsert the new items
+    ...auctionItems.map((item) =>
+      prisma.auctionItem.upsert({
+        where: {
+          storyblokUuid: item.storyblokUuid,
+        },
+        update: {
+          name: item.name,
+        },
+        create: {
+          storyblokUuid: item.storyblokUuid,
+          name: item.name,
+        },
+      })
+    ),
+
+    // Delete anything that shouldn't exist
+    // prisma.auctionItem.deleteMany({
+    //   where: {
+    //     storyblokUuid: {
+    //       notIn: auctionItems.map(item => item.storyblokUuid)
+    //     }
+    //   }
+    // })
+  ];
+
+  await prisma.$transaction(actions);
 
   return res.status(200).json(`${auctionItems.length} items imported`);
 }

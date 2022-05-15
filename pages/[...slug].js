@@ -8,6 +8,7 @@ import {
   getStoryblokApi,
   StoryblokComponent,
 } from "@storyblok/react";
+import { getAuctionItemByStoryblokUuid } from "../lib/services/auction-item";
 
 export default function Page({ story, auctionItem }) {
   story = useStoryblokState(story);
@@ -35,29 +36,13 @@ export async function getStaticProps({ params }) {
   const key = story ? story.id : false;
 
   const auctionItem = story
-    ? await prisma.auctionItem.findUnique({
-        where: { storyblokUuid: story.uuid },
-        include: {
-          bids: {
-            orderBy: { amount: "desc" },
-            take: 3,
-          },
-        },
-      })
+    ? await getAuctionItemByStoryblokUuid(prisma, story.uuid)
     : null;
-
-  const transformedAuctionItem = {
-    ...auctionItem,
-    bids: (auctionItem.bids ?? []).map((bid) => ({
-      ...bid,
-      createdAt: bid.createdAt.valueOf(), // Date times can't be serialised
-    })),
-  };
 
   return {
     props: {
       story: data ? data.story : false,
-      auctionItem: transformedAuctionItem,
+      auctionItem,
       key,
     },
     revalidate: 3600,

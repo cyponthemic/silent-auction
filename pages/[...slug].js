@@ -9,16 +9,11 @@ import {
   StoryblokComponent,
 } from "@storyblok/react";
 
-export default function Page({ story, pledges, bids }) {
+export default function Page({ story, auctionItem }) {
   story = useStoryblokState(story);
 
-  const auctionContext = {
-    auctionId: story.id,
-    bids,
-  };
-
   return (
-    <AuctionContextProvider value={auctionContext}>
+    <AuctionContextProvider value={auctionItem}>
       <div className={styles.container}>
         <StoryblokComponent story={story} blok={story.content} pledges={[]} />
       </div>
@@ -39,17 +34,30 @@ export async function getStaticProps({ params }) {
   const story = data ? data.story : false;
   const key = story ? story.id : false;
 
-  const bids = key
-    ? await prisma.bid.findMany({
-        select: { amount: true },
-        where: { auctionItemId: String(key) },
+  const auctionItem = story
+    ? await prisma.auctionItem.findUnique({
+        where: { storyblokUuid: story.uuid },
+        include: {
+          bids: {
+            orderBy: { amount: "desc" },
+            take: 3,
+          },
+        },
       })
-    : [];
+    : null;
+
+  const transformedAuctionItem = {
+    ...auctionItem,
+    bids: (auctionItem.bids ?? []).map((bid) => ({
+      ...bid,
+      createdAt: bid.createdAt.valueOf(), // Date times can't be serialised
+    })),
+  };
 
   return {
     props: {
       story: data ? data.story : false,
-      bids: bids || [],
+      auctionItem: transformedAuctionItem,
       key,
     },
     revalidate: 3600,

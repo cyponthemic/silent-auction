@@ -15,19 +15,21 @@ model AuctionItem {
   id            String @id @default(cuid())
   storyblokUuid String @unique
 
-  name           String
+  name String
 
   bids Bid[]
 }
 
 model Bid {
-  id            String @id @default(cuid())
-  auctionItemId String
+  id String @id @default(cuid())
 
   name           String
   phone          String
   amount         Int
   notifyOnChange Boolean @default(false)
 
-  auctionItem AuctionItem? @relation(fields: [auctionItemId], references: [id])
+  createdAt DateTime @default(now())
+
+  auctionItem   AuctionItem? @relation(fields: [auctionItemId], references: [id])
+  auctionItemId String
 }

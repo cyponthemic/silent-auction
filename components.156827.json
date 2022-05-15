@@ -1,10 +1,29 @@
 {
   "components": [
     {
+      "name": "Artist",
+      "display_name": null,
+      "created_at": "2022-05-15T00:24:01.656Z",
+      "updated_at": "2022-05-15T00:24:01.656Z",
+      "id": 2447716,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "Artist",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
       "name": "auction",
       "display_name": null,
       "created_at": "2022-05-09T09:18:00.059Z",
-      "updated_at": "2022-05-13T05:40:54.431Z",
+      "updated_at": "2022-05-15T01:05:29.655Z",
       "id": 2425502,
       "schema": {
         "title": {
@@ -31,6 +50,14 @@
         },
         "body": {
           "type": "bloks"
+        },
+        "artist": {
+          "type": "option",
+          "source": "internal_stories",
+          "folder_slug": "artists/",
+          "filter_content_type": "Artist",
+          "use_uuid": true,
+          "required": true
         }
       },
       "image": null,
@@ -121,7 +148,7 @@
       "name": "Hero",
       "display_name": null,
       "created_at": "2022-05-14T07:08:26.899Z",
-      "updated_at": "2022-05-14T07:09:25.018Z",
+      "updated_at": "2022-05-14T23:42:25.171Z",
       "id": 2446972,
       "schema": {
         "title": {
@@ -133,6 +160,11 @@
         "ctas": {
           "type": "bloks",
           "maximum": 2
+        },
+        "image": {
+          "type": "asset",
+          "display_name": "Image",
+          "filetypes": ["images"]
         }
       },
       "image": null,

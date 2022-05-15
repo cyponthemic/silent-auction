@@ -4,8 +4,12 @@ import AuctionFeedHeader from "./AuctionFeedHeader";
 import AuctionForm from "./AuctionForm";
 import AuctionHeader from "./AuctionHeader";
 
+import { useContext } from "react";
+import AppContext from "../../context/AppContext";
+
 const Auction = ({ story, pledges, blok }) => {
-  console.log(story, pledges, blok);
+  const { setAuction } = useContext(AppContext);
+  setAuction(story);
   return (
     <>
       <AuctionHeader story={blok} />

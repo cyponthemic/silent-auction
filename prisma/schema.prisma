@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
 }
 
 datasource db {
@@ -15,9 +16,9 @@ model Bid {
 
   auctionItemId String
 
-  firstName String
-  lastName  String
-  email     String
-  phone     String
-  amount    Int
+  firstName      String
+  lastName       String
+  phone          String
+  amount         Int
+  notifyOnChange Boolean @default(false)
 }

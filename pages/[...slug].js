@@ -41,12 +41,13 @@ export async function getStaticProps({ params }) {
   const story = data ? data.story : false;
   const key = story ? story.id : false;
 
-  const bids = key
-    ? await prisma.bid.findMany({
-        select: { amount: true },
-        where: { auctionItemId: String(key) },
-      })
-    : [];
+  const bids =
+    key && story.content === "auction"
+      ? await prisma.bid.findMany({
+          select: { amount: true },
+          where: { auctionItemId: String(key) },
+        })
+      : [];
 
   return {
     props: {

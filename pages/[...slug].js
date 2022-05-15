@@ -6,6 +6,7 @@ import {
   getStoryblokApi,
   StoryblokComponent,
 } from "@storyblok/react";
+import AppContext from "../context/AppContext";
 
 export default function Page({ story, pledges }) {
   story = useStoryblokState(story);
@@ -31,7 +32,6 @@ export async function getStaticProps({ params }) {
   const storyblokApi = getStoryblokApi();
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
 
-  console.log(data.story.uuid);
   let { data: pledges } = await storyblokApi.get(`cdn/stories/`, {
     starts_with: "pledges/",
     per_page: 3,
@@ -41,7 +41,6 @@ export async function getStaticProps({ params }) {
       },
     },
   });
-
   return {
     props: {
       story: data ? data.story : false,

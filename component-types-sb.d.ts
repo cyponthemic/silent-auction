@@ -1,3 +1,9 @@
+export interface ArtistStoryblok {
+  _uid: string;
+  component: "Artist";
+  [k: string]: any;
+}
+
 export interface AuctionStoryblok {
   title?: string;
   intro?: string;
@@ -11,6 +17,7 @@ export interface AuctionStoryblok {
   }[];
   description?: any;
   body?: any[];
+  artist?: ArtistStoryblok;
   _uid: string;
   component: "auction";
   [k: string]: any;
@@ -42,6 +49,14 @@ export interface HeroStoryblok {
   title?: string;
   description?: string;
   ctas?: any[];
+  image?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
   _uid: string;
   component: "Hero";
   [k: string]: any;

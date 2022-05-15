@@ -5,8 +5,7 @@ import { formatCentsToDollars } from "../../../../lib/money/format";
 import twilio, { sendSms } from "../../../../lib/sms";
 
 const schema = Joi.object({
-  firstName: Joi.string().min(1).max(50).required(),
-  lastName: Joi.string().min(1).max(50).required(),
+  name: Joi.string().min(1).max(100).required(),
   phone: Joi.string()
     .required()
     .custom((value) => {

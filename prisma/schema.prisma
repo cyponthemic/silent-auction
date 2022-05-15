@@ -11,14 +11,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Bid {
-  id String @id @default(cuid())
+model AuctionItem {
+  id            String @id @default(cuid())
+  storyblokUuid String @unique
 
+  name           String
+
+  bids Bid[]
+}
+
+model Bid {
+  id            String @id @default(cuid())
   auctionItemId String
 
-  firstName      String
-  lastName       String
+  name           String
   phone          String
   amount         Int
   notifyOnChange Boolean @default(false)
+
+  auctionItem AuctionItem? @relation(fields: [auctionItemId], references: [id])
 }

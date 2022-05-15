@@ -2,6 +2,7 @@ import Joi from "joi";
 import prisma from "../../../../lib/prisma";
 import parsePhoneNumber, { isValidPhoneNumber } from "libphonenumber-js";
 import { formatCentsToDollars } from "../../../../lib/money/format";
+import twilio, { sendSms } from "../../../../lib/sms";
 
 const schema = Joi.object({
   firstName: Joi.string().min(1).max(50).required(),
@@ -69,13 +70,24 @@ export default async function handler(req, res) {
           }
         );
 
-        // TODO: Send notification to previous highest bid
+        if (previousHighest.notifyOnChange) {
+          try {
+            const difference = formatCentsToDollars(
+              newBid.amount - previousHighest.amount
+            );
+            await sendSms(
+              previousHighest.phone,
+              `Your bid was beaten by ${difference}`
+            );
+          } catch (e) {
+            console.error("Failed to send SMS", e);
+          }
+        }
 
         // Respond with created item
         res.status(200).json({ previousHighest, newBid });
       } catch (e) {
         res.status(400).json(e.message);
-        break;
       }
       break;
 

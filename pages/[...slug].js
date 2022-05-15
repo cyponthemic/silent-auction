@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import { AuctionContextProvider } from "../lib/context/auction";
 import prisma from "../lib/prisma";
 
@@ -15,9 +14,7 @@ export default function Page({ story, auctionItem }) {
 
   return (
     <AuctionContextProvider value={auctionItem}>
-      <div className={styles.container}>
-        <StoryblokComponent story={story} blok={story.content} pledges={[]} />
-      </div>
+      <StoryblokComponent story={story} blok={story.content} pledges={[]} />
     </AuctionContextProvider>
   );
 }

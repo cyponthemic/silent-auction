@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
 import {
   useStoryblokState,
@@ -8,6 +7,7 @@ import {
 } from "@storyblok/react";
 import AppContext from "../context/AppContext";
 import { useContext } from "react";
+
 export default function Home({ story, auctions }) {
   story = useStoryblokState(story);
   auctions = useStoryblokState(auctions);
@@ -15,11 +15,7 @@ export default function Home({ story, auctions }) {
   const { setAuctions } = useContext(AppContext);
   setAuctions(auctions);
 
-  return (
-    <div className={styles.container}>
-      <StoryblokComponent blok={story.content} auctions={auctions} />
-    </div>
-  );
+  return <StoryblokComponent blok={story.content} auctions={auctions} />;
 }
 
 export async function getStaticProps() {

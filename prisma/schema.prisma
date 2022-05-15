@@ -13,7 +13,7 @@ datasource db {
 model Bid {
   id String @id @default(cuid())
 
-  austionItemId String
+  auctionItemId String
 
   firstName String
   lastName  String

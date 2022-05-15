@@ -5,7 +5,6 @@ import { AuctionStory } from "../stories";
 
 export default function AuctionListing({ blok }) {
   const { auctions } = useContext(AppContext);
-  console.log(blok, auctions);
 
   const posts = auctions.map((auction: AuctionStory) => ({
     title: auction.content.title,

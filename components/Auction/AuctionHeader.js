@@ -24,7 +24,6 @@ function classNames(...classes) {
 }
 
 export default function AuctionHeader({ story }) {
-  console.log(story);
   return (
     <div className="relative bg-gray-50">
       <main className="lg:relative">

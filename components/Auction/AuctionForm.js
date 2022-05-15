@@ -23,11 +23,16 @@ import { getMinimumBid } from "../../helpers/pledges";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-
+import { formatCentsToDollars } from "../../lib/money/format";
+import { useAuctionContext } from "../../lib/context/auction";
 export default function AuctionForm({ story, pledges }) {
   const [agreed, setAgreed] = useState(false);
+  const { bids } = useAuctionContext();
+
   const formElem = useRef(null);
-  const min = getMinimumBid(pledges);
+  const min = bids[0].amount / 100;
+
+  console.log("min", min);
   const router = useRouter();
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -12,15 +12,6 @@ export default function Home({ story }) {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <header>
-        <h1>{story ? story.name : "My Site"}</h1>
-      </header>
-
       <StoryblokComponent blok={story.content} />
     </div>
   );

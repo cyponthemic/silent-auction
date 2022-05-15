@@ -1,0 +1,236 @@
+{
+  "components": [
+    {
+      "name": "auction",
+      "display_name": null,
+      "created_at": "2022-05-09T09:18:00.059Z",
+      "updated_at": "2022-05-13T05:40:54.431Z",
+      "id": 2425502,
+      "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "key": "title"
+        },
+        "intro": {
+          "type": "text",
+          "pos": 1,
+          "key": "intro"
+        },
+        "images": {
+          "type": "multiasset",
+          "filetypes": ["images"],
+          "pos": 2,
+          "key": "images",
+          "display_name": "Images"
+        },
+        "description": {
+          "type": "richtext",
+          "pos": 3,
+          "key": "Description"
+        },
+        "body": {
+          "type": "bloks"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "auction",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "AuctionListing",
+      "display_name": null,
+      "created_at": "2022-05-14T00:55:56.683Z",
+      "updated_at": "2022-05-14T00:56:43.498Z",
+      "id": 2446666,
+      "schema": {
+        "heading": {
+          "type": "text"
+        },
+        "description": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "AuctionListing",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "feature",
+      "display_name": null,
+      "created_at": "2022-05-09T09:16:44.772Z",
+      "updated_at": "2022-05-09T09:16:44.772Z",
+      "id": 2425500,
+      "schema": {
+        "name": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "feature",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "grid",
+      "display_name": null,
+      "created_at": "2022-05-09T09:16:44.756Z",
+      "updated_at": "2022-05-09T09:16:44.756Z",
+      "id": 2425499,
+      "schema": {
+        "columns": {
+          "type": "bloks"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "grid",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "Hero",
+      "display_name": null,
+      "created_at": "2022-05-14T07:08:26.899Z",
+      "updated_at": "2022-05-14T07:09:25.018Z",
+      "id": 2446972,
+      "schema": {
+        "title": {
+          "type": "text"
+        },
+        "description": {
+          "type": "text"
+        },
+        "ctas": {
+          "type": "bloks",
+          "maximum": 2
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "Hero",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "page",
+      "display_name": null,
+      "created_at": "2022-05-09T09:16:44.722Z",
+      "updated_at": "2022-05-09T09:16:44.722Z",
+      "id": 2425497,
+      "schema": {
+        "body": {
+          "type": "bloks"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "page",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "pledges",
+      "display_name": "Pledges",
+      "created_at": "2022-05-09T09:47:22.901Z",
+      "updated_at": "2022-05-09T23:37:44.482Z",
+      "id": 2425737,
+      "schema": {
+        "firstName": {
+          "type": "text"
+        },
+        "lastName": {
+          "type": "text"
+        },
+        "emailAddress": {
+          "type": "text"
+        },
+        "amount": {
+          "type": "text"
+        },
+        "auction": {
+          "type": "option",
+          "source": "internal_stories",
+          "filter_content_type": "auction",
+          "folder_slug": "auctions",
+          "use_uuid": true
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "Pledges",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "teaser",
+      "display_name": null,
+      "created_at": "2022-05-09T09:16:44.739Z",
+      "updated_at": "2022-05-09T09:16:44.739Z",
+      "id": 2425498,
+      "schema": {
+        "headline": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "teaser",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    }
+  ]
+}

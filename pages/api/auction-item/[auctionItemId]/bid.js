@@ -42,7 +42,7 @@ export default async function handler(req, res) {
         });
 
         // Make sure the new bid is $5 higher
-        if (value.amount < highestBid.amount + 500) {
+        if (highestBid && value.amount < highestBid.amount + 500) {
           const dollars = formatCentsToDollars(highestBid.amount);
           throw new Error(
             `Please enter a bid that's at least $5 higher the current bid of ${dollars}`
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
       }
     );
 
-    if (previousHighest.notifyOnChange) {
+    if (previousHighest?.notifyOnChange) {
       try {
         const difference = formatCentsToDollars(
           newBid.amount - previousHighest.amount

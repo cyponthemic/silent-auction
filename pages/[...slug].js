@@ -5,14 +5,31 @@ import prisma from "../lib/prisma";
 import { useStoryblokState, StoryblokComponent } from "@storyblok/react";
 import { getAuctionItemByStoryblokUuid } from "../lib/services/auction-item";
 import storyblok from "../lib/storyblok";
+import useSWR, { SWRConfig } from "swr";
 
-export default function Page({ story, auctionItem }) {
+function PageInner({ story, auctionItem }) {
   story = useStoryblokState(story);
 
+  const { data } = useSWR(
+    `/api/storyblok/auction-item/${auctionItem.storyblokUuid}`
+  );
+
+  if (!data) {
+    return null;
+  }
+
   return (
-    <AuctionContextProvider value={auctionItem}>
+    <AuctionContextProvider value={data}>
       <StoryblokComponent story={story} blok={story.content} pledges={[]} />
     </AuctionContextProvider>
+  );
+}
+
+export default function Page({ fallback, ...rest }) {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <PageInner {...rest} />
+    </SWRConfig>
   );
 }
 
@@ -37,6 +54,10 @@ export async function getStaticProps({ params }) {
       story,
       auctionItem,
       key,
+      fallback: {
+        [`/api/storyblok/auction-item/${auctionItem.storyblokUuid}`]:
+          auctionItem,
+      },
     },
     revalidate: 3600,
   };

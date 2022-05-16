@@ -34,7 +34,7 @@ export async function getStaticProps({ params }) {
 
   return {
     props: {
-      story: data ? data.story : false,
+      story,
       auctionItem,
       key,
     },

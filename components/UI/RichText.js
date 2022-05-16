@@ -1,7 +1,7 @@
 const StoryblokClient = require("storyblok-js-client");
 
 let Storyblok = new StoryblokClient({
-  accessToken: process.env.STORYBLOK_FRONTEND_TOKEN,
+  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_FRONTEND_TOKEN,
 });
 
 function createMarkup(storyblokHTML) {

@@ -1,5 +1,5 @@
 import { formatDistanceToNow, formatISO } from "date-fns";
-import { CheckIcon } from "@heroicons/react/solid";
+import { CashIcon } from "@heroicons/react/solid";
 import { useAuctionContext } from "../../lib/context/auction";
 import { formatCentsToDollars } from "../../lib/money/format";
 
@@ -7,20 +7,22 @@ export default function AuctionFeed({ pledges }) {
   const { bids } = useAuctionContext();
 
   if (bids.length === 0) {
-    return <div className="container mx-auto text-center">No bids yet</div>;
+    return <div className="max-w-7xl mx-auto text-center">No bids yet</div>;
   }
 
   return (
-    <div className="flow-root">
-      <ul role="list" className="-mb-8">
-        {bids.map((bid, index) => (
-          <AuctionFeedItem
-            key={bid.id}
-            bid={bid}
-            isLastItem={index === bids.length - 1}
-          />
-        ))}
-      </ul>
+    <div className="max-w-xl mx-auto">
+      <div className="flow-root px-4 sm:px-8 xl:pr-16">
+        <ul role="list" className="-mb-8">
+          {bids.map((bid, index) => (
+            <AuctionFeedItem
+              key={bid.id}
+              bid={bid}
+              isLastItem={index === bids.length - 1}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -44,7 +46,7 @@ function AuctionFeedItem({ bid, isLastItem }) {
                 "bg-green-500 h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white"
               }
             >
-              <CheckIcon className="h-5 w-5 text-white" aria-hidden="true" />
+              <CashIcon className="h-5 w-5 text-white" aria-hidden="true" />
             </span>
           </div>
           <div className="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">

@@ -11,7 +11,7 @@ function PageInner({ story, auctionItem }) {
   story = useStoryblokState(story);
 
   const { data } = useSWR(
-    `/api/storyblok/auction-item/${auctionItem.storyblokUuid}`
+    () => `/api/storyblok/auction-item/${auctionItem.storyblokUuid}`
   );
 
   if (!data) {
@@ -40,6 +40,8 @@ export async function getStaticProps({ params }) {
     version: "draft", // or 'published'
   };
 
+  const fallback = {};
+
   const { data } = await storyblok.get(`cdn/stories/${slug}`, sbParams);
 
   const story = data ? data.story : false;
@@ -49,15 +51,17 @@ export async function getStaticProps({ params }) {
     ? await getAuctionItemByStoryblokUuid(prisma, story.uuid)
     : null;
 
+  if (auctionItem) {
+    fallback[`/api/storyblok/auction-item/${auctionItem.storyblokUuid}`] =
+      auctionItem;
+  }
+
   return {
     props: {
       story,
       auctionItem,
       key,
-      fallback: {
-        [`/api/storyblok/auction-item/${auctionItem.storyblokUuid}`]:
-          auctionItem,
-      },
+      fallback,
     },
     revalidate: 3600,
   };

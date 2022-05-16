@@ -15,8 +15,9 @@ model AuctionItem {
   id            String @id @default(cuid())
   storyblokUuid String @unique
 
-  name String
-  slug String
+  name        String
+  slug        String
+  startingBid Int    @default(5000)
 
   bids Bid[]
 }

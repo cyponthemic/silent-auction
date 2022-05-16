@@ -15,13 +15,13 @@ const createBidSchema = getCreateBidSchema(Joi);
 
 export default function AuctionForm() {
   const { mutate } = useSWRConfig();
-  const { id, storyblokUuid, bids } = useAuctionContext();
+  const { id, storyblokUuid, startingBid, bids } = useAuctionContext();
 
   const highestBidAmount = bids.length > 0 ? bids[0].amount : 0;
   const recommendedBidAmount =
     highestBidAmount > 0
       ? highestBidAmount + 1000 // + $10
-      : 5000; // Default $50
+      : startingBid;
 
   const defaultAmount = (recommendedBidAmount / 100).toFixed(2);
 

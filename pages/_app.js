@@ -29,6 +29,7 @@ storyblokInit({
 function MyApp({ Component, pageProps }) {
   const [auctions, setAuctions] = useState([]);
   const [auction, setAuction] = useState([]);
+
   return (
     <AppContext.Provider value={{ auctions, setAuctions, auction, setAuction }}>
       <Component {...pageProps} />

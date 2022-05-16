@@ -1,12 +1,9 @@
 import Head from "next/head";
 
-import {
-  useStoryblokState,
-  getStoryblokApi,
-  StoryblokComponent,
-} from "@storyblok/react";
+import { useStoryblokState, StoryblokComponent } from "@storyblok/react";
 import AppContext from "../context/AppContext";
 import { useContext } from "react";
+import storyblok from "../lib/storyblok";
 
 export default function Home({ story, auctions }) {
   story = useStoryblokState(story);
@@ -25,12 +22,11 @@ export async function getStaticProps() {
     version: "draft", // or 'published'
   };
 
-  const storyblokApi = getStoryblokApi();
-  let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
+  let { data } = await storyblok.get(`cdn/stories/${slug}`, sbParams);
 
-  let { data: auctions } = await storyblokApi.get(`cdn/stories/`, {
+  let { data: auctions } = await storyblok.get(`cdn/stories/`, {
     starts_with: "auctions/",
-    resolve_relations: "auction.artist",
+    // resolve_relations: "auction.artist",
   });
 
   return {

@@ -8,6 +8,7 @@ import {
   StoryblokComponent,
 } from "@storyblok/react";
 import { getAuctionItemByStoryblokUuid } from "../lib/services/auction-item";
+import storyblok from "../lib/storyblok";
 
 export default function Page({ story, auctionItem }) {
   story = useStoryblokState(story);
@@ -26,8 +27,7 @@ export async function getStaticProps({ params }) {
     version: "draft", // or 'published'
   };
 
-  const storyblokApi = getStoryblokApi();
-  const { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
+  const { data } = await storyblok.get(`cdn/stories/${slug}`, sbParams);
 
   const story = data ? data.story : false;
   const key = story ? story.id : false;
@@ -47,8 +47,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const storyblokApi = getStoryblokApi();
-  let { data } = await storyblokApi.get("cdn/links/");
+  let { data } = await storyblok.get("cdn/links/");
 
   let paths = [];
   Object.keys(data.links).forEach((linkKey) => {

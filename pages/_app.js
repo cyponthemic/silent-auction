@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-import { storyblokInit, apiPlugin } from "@storyblok/react";
+import { storyblokInit } from "@storyblok/react";
 import { useState } from "react";
 import Feature from "../components/Feature";
 import Grid from "../components/Grid";
@@ -23,7 +23,6 @@ const components = {
 
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_FRONTEND_TOKEN,
-  use: [apiPlugin],
   components,
 });
 

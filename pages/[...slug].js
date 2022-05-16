@@ -2,11 +2,7 @@ import Head from "next/head";
 import { AuctionContextProvider } from "../lib/context/auction";
 import prisma from "../lib/prisma";
 
-import {
-  useStoryblokState,
-  getStoryblokApi,
-  StoryblokComponent,
-} from "@storyblok/react";
+import { useStoryblokState, StoryblokComponent } from "@storyblok/react";
 import { getAuctionItemByStoryblokUuid } from "../lib/services/auction-item";
 import storyblok from "../lib/storyblok";
 

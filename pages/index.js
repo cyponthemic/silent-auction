@@ -1,28 +1,24 @@
 import Head from "next/head";
 
 import { useStoryblokState, StoryblokComponent } from "@storyblok/react";
-import AppContext from "../context/AppContext";
-import { useContext } from "react";
+import { AuctionsContextProvider } from "../context/AuctionsContext";
 import storyblok from "../lib/storyblok";
 
 export default function Home({ story, auctions }) {
   story = useStoryblokState(story);
   auctions = useStoryblokState(auctions);
 
-  const { setAuctions } = useContext(AppContext);
-  setAuctions(auctions);
-
-  return <StoryblokComponent blok={story.content} auctions={auctions} />;
+  return (
+    <AuctionsContextProvider value={{ auctions }}>
+      <StoryblokComponent blok={story.content} auctions={auctions} />
+    </AuctionsContextProvider>
+  );
 }
 
 export async function getStaticProps() {
   let slug = "home";
 
-  let sbParams = {
-    version: "draft", // or 'published'
-  };
-
-  let { data } = await storyblok.get(`cdn/stories/${slug}`, sbParams);
+  let { data } = await storyblok.get(`cdn/stories/${slug}`);
 
   let { data: auctions } = await storyblok.get(`cdn/stories/`, {
     starts_with: "auctions/",

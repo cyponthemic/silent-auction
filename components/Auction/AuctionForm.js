@@ -126,7 +126,12 @@ export default function AuctionForm() {
             Bid
           </label>
           <div className="block text-sm font-medium text-indigo-700">
-            Current winning bid: {formatCentsToDollars(highestBidAmount)}
+            {highestBidAmount > 0 && (
+              <span>
+                Current winning bid: {formatCentsToDollars(highestBidAmount)}
+              </span>
+            )}
+            {highestBidAmount === 0 && <span>No bids yet</span>}
           </div>
         </div>
         <div className="mt-1 relative rounded-md shadow-sm">

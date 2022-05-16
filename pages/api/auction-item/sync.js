@@ -22,6 +22,7 @@ export default async function handler(req, res) {
   const auctionItems = stories.data.stories.map((story) => ({
     storyblokUuid: story.uuid,
     name: story.name,
+    slug: story.slug,
   }));
 
   const actions = [
@@ -33,10 +34,12 @@ export default async function handler(req, res) {
         },
         update: {
           name: item.name,
+          slug: item.slug,
         },
         create: {
           storyblokUuid: item.storyblokUuid,
           name: item.name,
+          slug: item.slug,
         },
       })
     ),

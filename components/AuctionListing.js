@@ -1,12 +1,11 @@
 import Link from "next/link";
 import { useContext } from "react";
 import AppContext from "../context/AppContext";
-import { AuctionStory } from "../stories";
 
 export default function AuctionListing({ blok }) {
   const { auctions } = useContext(AppContext);
 
-  const posts = auctions.map((auction: AuctionStory) => ({
+  const posts = auctions.map((auction) => ({
     title: auction.content.title,
     href: auction.full_slug,
     category: { name: "Article", href: "#" },

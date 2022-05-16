@@ -6,7 +6,7 @@ import Grid from "../components/Grid";
 import Page from "../components/Page";
 import Teaser from "../components/Teaser";
 import Auction from "../components/Auction";
-import AuctionListing from "../components/AuctionListing.tsx";
+import AuctionListing from "../components/AuctionListing";
 import Hero from "../components/Hero";
 
 import AppContext from "../context/AppContext";

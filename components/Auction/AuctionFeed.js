@@ -2,6 +2,7 @@ import { formatDistanceToNow, formatISO } from "date-fns";
 import { CashIcon } from "@heroicons/react/solid";
 import { useAuctionContext } from "../../lib/context/auction";
 import { formatCentsToDollars } from "../../lib/money/format";
+import { useEffect, useState } from "react";
 
 export default function AuctionFeed({ pledges }) {
   const { bids } = useAuctionContext();
@@ -28,7 +29,12 @@ export default function AuctionFeed({ pledges }) {
 }
 
 function AuctionFeedItem({ bid, isLastItem }) {
-  const createdAt = new Date(bid.createdAt);
+  const [createdAt, setCreatedAt] = useState();
+
+  // Use effect so that it only runs client side
+  useEffect(() => {
+    setCreatedAt(new Date(bid.createdAt));
+  }, [bid.createdAt]);
 
   return (
     <li>
@@ -56,9 +62,11 @@ function AuctionFeedItem({ bid, isLastItem }) {
               </p>
             </div>
             <div className="text-right text-sm whitespace-nowrap text-gray-500">
-              <time dateTime={formatISO(createdAt)}>
-                {formatDistanceToNow(createdAt, { addSuffix: true })}
-              </time>
+              {createdAt && (
+                <time dateTime={formatISO(createdAt)}>
+                  {formatDistanceToNow(createdAt, { addSuffix: true })}
+                </time>
+              )}
             </div>
           </div>
         </div>

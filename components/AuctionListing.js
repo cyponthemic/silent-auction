@@ -4,22 +4,7 @@ import { useAuctionsContext } from "../context/AuctionsContext";
 export default function AuctionListing({ blok }) {
   const { auctions } = useAuctionsContext();
 
-  const posts = auctions.map((auction) => ({
-    title: auction.content.title,
-    href: "/" + auction.full_slug,
-    category: { name: "Article", href: "#" },
-    description: auction.content.intro,
-    date: "Mar 16, 2020",
-    datetime: "2020-03-16",
-    imageUrl: auction?.content.images[0].filename,
-    readingTime: "[Pull latest bid]",
-    author: {
-      name: auction.content.artist.name,
-      href: "#",
-      imageUrl:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-  }));
+  console.log(auctions[0]);
 
   return (
     <div className="relative bg-gray-50 pt-16 pb-20 px-4 sm:px-6 lg:pt-24 lg:pb-28 lg:px-8">
@@ -36,43 +21,45 @@ export default function AuctionListing({ blok }) {
           </p>
         </div>
         <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
-          {posts.map((post) => (
+          {auctions.map((auction) => (
             <div
-              key={post.title}
+              key={auction.id}
               className="flex flex-col rounded-lg shadow-lg overflow-hidden"
             >
-              <Link href={post.href} className="flex-shrink-0">
+              <Link href={`/${auction.full_slug}`} className="flex-shrink-0">
                 <a>
-                  <img
-                    className="h-64 w-full object-cover"
-                    src={post.imageUrl}
-                    alt=""
-                  />
+                  {auction.content.images.length > 0 && (
+                    <img
+                      className="h-64 w-full object-cover"
+                      src={auction.content.images[0].filename}
+                      alt=""
+                    />
+                  )}
                 </a>
               </Link>
               <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                 <div className="flex-1">
-                  <Link href={post.href} className="block mt-2">
+                  <Link href={`/${auction.full_slug}`} className="block mt-2">
                     <a>
                       <p className="text-xl font-semibold text-gray-900">
-                        {post.title}
+                        {auction.content.title}
                       </p>
-                      <p className="mt-3 text-base text-gray-500">
-                        {post.description}
-                      </p>
+                      {/*<p className="mt-3 text-base text-gray-500">*/}
+                      {/*  {auction.content.intro}*/}
+                      {/*</p>*/}
                     </a>
                   </Link>
                 </div>
-                <div className="mt-6 flex items-center">
-                  <div className="ml-3">
+                <div className="mt-3 flex items-center">
+                  <div className="">
                     <p className="text-sm font-medium text-gray-900">
-                      {post.author.name}
+                      {auction.content.artist.name}
                     </p>
-                    <div className="flex space-x-1 text-sm text-gray-500">
-                      <time dateTime={post.datetime}>{post.date}</time>
-                      <span aria-hidden="true">&middot;</span>
-                      <span>{post.readingTime} read</span>
-                    </div>
+                    {/*<div className="flex space-x-1 text-sm text-gray-500">*/}
+                    {/*  <time dateTime={auction.datetime}>{auction.date}</time>*/}
+                    {/*  <span aria-hidden="true">&middot;</span>*/}
+                    {/*  <span>{auction.readingTime} read</span>*/}
+                    {/*</div>*/}
                   </div>
                 </div>
               </div>

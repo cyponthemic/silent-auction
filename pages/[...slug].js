@@ -41,26 +41,11 @@ export async function getStaticProps({ params }) {
   const { data } = await storyblok.get(`cdn/stories/${slug}`, {
     version: "published",
     cv: new Date().valueOf(), // Cache invalidation
+    resolve_relations: "auction.artist",
   });
 
   const story = data ? data.story : false;
   const key = story ? story.id : false;
-  const artistId = data?.story?.content?.artist;
-
-  if (artistId) {
-    const { data: artist } = await storyblok.get(
-      `cdn/stories/${artistId}?find_by=uuid`,
-      {
-        version: "published",
-        cv: new Date().valueOf(), // Cache invalidation
-      }
-    );
-
-    if (artist?.story) {
-      story.content.artist = artist.story.name;
-      console.log(story);
-    }
-  }
 
   const auctionItem = story
     ? await getAuctionItemByStoryblokUuid(prisma, story.uuid)

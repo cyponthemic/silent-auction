@@ -29,7 +29,7 @@ export async function getStaticProps() {
     starts_with: "auctions/",
     cv, // Add cache invalidation
     per_page: 100,
-    // resolve_relations: "auction.artist",
+    resolve_relations: "auction.artist",
   });
 
   return {

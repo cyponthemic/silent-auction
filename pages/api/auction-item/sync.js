@@ -13,9 +13,9 @@ export default async function handler(req, res) {
     return res.status(401).end(`Unauthorised`);
   }
 
-  const stories = await storyblok.get("spaces/156827/stories/", {
-    is_published: true,
-    with_parent: auctionFolderId,
+  const stories = await storyblok.get("cdn/stories/", {
+    cv: new Date().valueOf(),
+    starts_with: "auctions/",
     per_page: 100,
   });
 

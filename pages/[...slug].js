@@ -68,7 +68,8 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  let { data } = await storyblok.get("cdn/links/");
+  // Only generate pages for auctions
+  let { data } = await storyblok.get("cdn/links/?starts_with=auctions/");
 
   let paths = [];
   Object.keys(data.links).forEach((linkKey) => {

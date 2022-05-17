@@ -37,7 +37,8 @@ export async function getStaticProps({ params }) {
   let slug = params.slug ? params.slug.join("/") : "home";
 
   let sbParams = {
-    version: "draft", // or 'published'
+    version: "published",
+    ci: new Date().valueOf(), // Cache invalidation
   };
 
   const fallback = {};
@@ -68,6 +69,9 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
+  // Cache invalidation
+  const ci = new Date().valueOf();
+
   // Only generate pages for auctions
   let { data } = await storyblok.get("cdn/links/?starts_with=auctions/");
 

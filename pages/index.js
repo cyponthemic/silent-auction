@@ -18,10 +18,16 @@ export default function Home({ story, auctions }) {
 export async function getStaticProps() {
   let slug = "home";
 
-  let { data } = await storyblok.get(`cdn/stories/${slug}`);
+  // Cache invalidation
+  const ci = new Date().valueOf();
+
+  let { data } = await storyblok.get(`cdn/stories/${slug}`, {
+    ci,
+  });
 
   let { data: auctions } = await storyblok.get(`cdn/stories/`, {
     starts_with: "auctions/",
+    ci, // Add cache invalidation
     // resolve_relations: "auction.artist",
   });
 

@@ -23,6 +23,13 @@ const components = {
 storyblokInit({
   accessToken: process.env.NEXT_PUBLIC_STORYBLOK_FRONTEND_TOKEN,
   components,
+  apiOptions: {
+    // storyblok-js-client config object
+    cache: {
+      clear: "auto",
+      type: "memory",
+    },
+  },
 });
 
 function MyApp({ Component, pageProps }) {

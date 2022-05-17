@@ -6,9 +6,9 @@ export default function AuctionFeedHeader() {
           <p className="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
             Latest bids
           </p>
-          <p className="max-w-xl mt-5 mx-auto text-xl text-gray-500">
-            [Some description here]
-          </p>
+          {/*<p className="max-w-xl mt-5 mx-auto text-xl text-gray-500">*/}
+          {/*  [Some description here]*/}
+          {/*</p>*/}
         </div>
       </div>
     </div>

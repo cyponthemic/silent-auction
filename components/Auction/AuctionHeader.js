@@ -12,6 +12,10 @@ export default function AuctionHeader({ story }) {
               <span className="block xl:inline">{story.title}</span>
             </h1>
 
+            <div className="mt-3 max-w-md mx-auto text-md md:mt-5 md:max-w-3xl text-center lg:text-left">
+              {story.artist}
+            </div>
+
             <div className="mt-3 max-w-md mx-auto text-md text-gray-500 md:mt-5 md:max-w-3xl text-center lg:text-left">
               {renderRichText(story.description)}
             </div>

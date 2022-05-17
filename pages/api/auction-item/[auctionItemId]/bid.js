@@ -43,10 +43,7 @@ export default async function handler(req, res) {
 
         // Make sure the new bid is $5 higher
         if (highestBid && value.amount < highestBid.amount + 500) {
-          const dollars = formatCentsToDollars(highestBid.amount);
-          throw new Error(
-            `Please enter a bid that's at least $5 higher the current bid of ${dollars}`
-          );
+          return [highestBid, null]; // Don't return a new bid
         }
 
         // Add the new bid
@@ -57,6 +54,15 @@ export default async function handler(req, res) {
         return [highestBid, newBid];
       }
     );
+
+    if (!newBid) {
+      const dollars = formatCentsToDollars(previousHighest.amount);
+      return res
+        .status(400)
+        .json(
+          `Please enter a bid that's at least $5 higher the current bid of ${dollars}`
+        );
+    }
 
     if (previousHighest?.notifyOnChange) {
       try {
@@ -75,6 +81,6 @@ export default async function handler(req, res) {
     // Respond with created item
     return res.status(200).json(newBid);
   } catch (e) {
-    return res.status(400).json(e.message);
+    return res.status(500).json(e.message);
   }
 }

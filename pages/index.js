@@ -19,15 +19,16 @@ export async function getStaticProps() {
   let slug = "home";
 
   // Cache invalidation
-  const ci = new Date().valueOf();
+  const cv = new Date().valueOf();
 
   let { data } = await storyblok.get(`cdn/stories/${slug}`, {
-    ci,
+    cv,
   });
 
   let { data: auctions } = await storyblok.get(`cdn/stories/`, {
     starts_with: "auctions/",
-    ci, // Add cache invalidation
+    cv, // Add cache invalidation
+    per_page: 100,
     // resolve_relations: "auction.artist",
   });
 

@@ -36,17 +36,31 @@ export default function Page({ fallback, ...rest }) {
 export async function getStaticProps({ params }) {
   let slug = params.slug ? params.slug.join("/") : "home";
 
-  let sbParams = {
-    version: "published",
-    ci: new Date().valueOf(), // Cache invalidation
-  };
-
   const fallback = {};
 
-  const { data } = await storyblok.get(`cdn/stories/${slug}`, sbParams);
+  const { data } = await storyblok.get(`cdn/stories/${slug}`, {
+    version: "published",
+    cv: new Date().valueOf(), // Cache invalidation
+  });
 
   const story = data ? data.story : false;
   const key = story ? story.id : false;
+  const artistId = data?.story?.content?.artist;
+
+  if (artistId) {
+    const { data: artist } = await storyblok.get(
+      `cdn/stories/${artistId}?find_by=uuid`,
+      {
+        version: "published",
+        cv: new Date().valueOf(), // Cache invalidation
+      }
+    );
+
+    if (artist?.story) {
+      story.content.artist = artist.story.name;
+      console.log(story);
+    }
+  }
 
   const auctionItem = story
     ? await getAuctionItemByStoryblokUuid(prisma, story.uuid)
@@ -69,11 +83,11 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  // Cache invalidation
-  const ci = new Date().valueOf();
-
   // Only generate pages for auctions
-  let { data } = await storyblok.get("cdn/links/?starts_with=auctions/");
+  let { data } = await storyblok.get("cdn/links/?starts_with=auctions/", {
+    cv: new Date().valueOf(), // Cache invalidation
+    per_page: 100,
+  });
 
   let paths = [];
   Object.keys(data.links).forEach((linkKey) => {

@@ -31,6 +31,6 @@ export async function getStaticProps() {
       auctions: auctions?.stories || [],
       key: data ? data.story.id : false,
     },
-    revalidate: 3600,
+    revalidate: 60 * 30, // Revalidate every 30 minutes
   };
 }

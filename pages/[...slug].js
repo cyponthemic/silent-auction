@@ -63,7 +63,7 @@ export async function getStaticProps({ params }) {
       key,
       fallback,
     },
-    revalidate: 3600,
+    revalidate: 60 * 5, // Revalidate every 5 minutes
   };
 }
 

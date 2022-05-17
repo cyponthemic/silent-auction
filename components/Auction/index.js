@@ -4,13 +4,18 @@ import AuctionFeedHeader from "./AuctionFeedHeader";
 import AuctionHeader from "./AuctionHeader";
 
 const Auction = ({ blok }) => {
+  const canBid = !blok.is_live_auction;
+
   return (
     <>
       <AuctionHeader story={blok} />
 
-      <AuctionFeedHeader></AuctionFeedHeader>
-
-      <AuctionFeed />
+      {canBid && (
+        <>
+          <AuctionFeedHeader />
+          <AuctionFeed />
+        </>
+      )}
 
       <main className="pt-16 sm:pt-24" {...storyblokEditable(blok)}>
         {blok?.body?.map((nestedBlok) => (

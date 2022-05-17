@@ -3,6 +3,8 @@ import { render as renderRichText } from "storyblok-rich-text-react-renderer";
 import AuctionForm from "./AuctionForm";
 
 export default function AuctionHeader({ story }) {
+  const canBid = !story.is_live_auction;
+
   return (
     <div className="relative bg-gray-50">
       <main className="lg:relative">
@@ -22,9 +24,11 @@ export default function AuctionHeader({ story }) {
               {renderRichText(story.description)}
             </div>
 
-            <div className="mt-12">
-              <AuctionForm />
-            </div>
+            {canBid && (
+              <div className="mt-12">
+                <AuctionForm />
+              </div>
+            )}
           </div>
         </div>
 

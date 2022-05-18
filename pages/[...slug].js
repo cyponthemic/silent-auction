@@ -47,7 +47,7 @@ export async function getStaticProps({ params }) {
   const key = story ? story.id : false;
 
   const auctionItem = story
-    ? await getAuctionItemByStoryblokUuid(prisma, story.uuid)
+    ? await getAuctionItemByStoryblokUuid(story.uuid)
     : null;
 
   if (auctionItem) {
@@ -66,7 +66,7 @@ export async function getStaticProps({ params }) {
   };
 }
 
-async function getAuctionItemByStoryblokUuid() {
+async function getAuctionItemByStoryblokUuid(storyblokUuid) {
   const item = await prisma.auctionItem.findUnique({
     where: { storyblokUuid },
     include: {

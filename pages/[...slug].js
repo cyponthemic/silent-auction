@@ -3,7 +3,6 @@ import { AuctionContextProvider } from "../lib/context/auction";
 import prisma from "../lib/prisma";
 
 import { useStoryblokState, StoryblokComponent } from "@storyblok/react";
-import { getAuctionItemByStoryblokUuid } from "../lib/services/auction-item";
 import storyblok from "../lib/storyblok";
 import useSWR, { SWRConfig } from "swr";
 
@@ -64,6 +63,31 @@ export async function getStaticProps({ params }) {
       fallback,
     },
     revalidate: 60 * 5, // Revalidate every 5 minutes
+  };
+}
+
+async function getAuctionItemByStoryblokUuid() {
+  const item = await prisma.auctionItem.findUnique({
+    where: { storyblokUuid },
+    include: {
+      bids: {
+        select: { id: true, amount: true, createdAt: true },
+        orderBy: { amount: "desc" },
+        take: 5,
+      },
+    },
+  });
+
+  if (!item) {
+    return null;
+  }
+
+  return {
+    ...item,
+    bids: (item.bids ?? []).map((bid) => ({
+      ...bid,
+      createdAt: bid.createdAt.toISOString(), // Date times can't be serialised
+    })),
   };
 }
 

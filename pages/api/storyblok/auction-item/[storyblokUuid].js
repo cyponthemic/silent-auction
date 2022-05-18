@@ -16,7 +16,6 @@ export default async function handler(req, res) {
       bids: {
         select: { id: true, amount: true, createdAt: true },
         orderBy: { amount: "desc" },
-        take: 5,
       },
     },
   });

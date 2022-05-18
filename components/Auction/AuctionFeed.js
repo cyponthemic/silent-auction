@@ -15,7 +15,7 @@ export default function AuctionFeed({ pledges }) {
     <div className="max-w-xl mx-auto">
       <div className="flow-root px-4 sm:px-8 xl:pr-16">
         <ul role="list" className="-mb-8">
-          {bids.map((bid, index) => (
+          {bids.slice(0, 5).map((bid, index) => (
             <AuctionFeedItem
               key={bid.id}
               bid={bid}

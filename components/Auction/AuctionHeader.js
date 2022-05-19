@@ -32,7 +32,7 @@ export default function AuctionHeader({ story }) {
           </div>
         </div>
 
-        <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
+        <div className="hidden lg:block relative w-full h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
           <Image
             className="absolute inset-0 w-full h-full object-cover"
             src={story?.images[0]?.filename}
@@ -40,6 +40,12 @@ export default function AuctionHeader({ story }) {
             alt=""
           />
         </div>
+
+        <img
+          className="w-full h-auto lg:hidden"
+          src={story?.images[0]?.filename}
+          alt=""
+        />
       </main>
     </div>
   );

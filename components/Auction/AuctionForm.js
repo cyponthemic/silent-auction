@@ -241,11 +241,19 @@ export default function AuctionForm() {
               </h3>
               <div className="mt-2 text-sm text-blue-700">
                 <ul role="list" className="list-disc pl-5 space-y-1">
-                  <li>Your password must be at least 8 characters</li>
                   <li>
-                    Your password must include at least one pro wrestling
-                    finishing move
+                    Pickup in Fitzroy North, or $25 for delivery within
+                    Melbourne only
                   </li>
+                  <li>
+                    Pay by donation to specified fund (we&apos;ll text you if
+                    you win)
+                  </li>
+                  <li>
+                    Pay within the hour or your item will pass to the next
+                    person
+                  </li>
+                  <li>No returns</li>
                 </ul>
               </div>
             </div>

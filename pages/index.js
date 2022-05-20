@@ -9,9 +9,16 @@ export default function Home({ story, auctions }) {
   auctions = useStoryblokState(auctions);
 
   return (
-    <AuctionsContextProvider value={{ auctions }}>
-      <StoryblokComponent blok={story.content} auctions={auctions} />
-    </AuctionsContextProvider>
+    <>
+      <Head>
+        <title>Open Mess</title>
+        <meta property="og:image" content="/full-logo.png" />
+      </Head>
+
+      <AuctionsContextProvider value={{ auctions }}>
+        <StoryblokComponent blok={story.content} auctions={auctions} />
+      </AuctionsContextProvider>
+    </>
   );
 }
 

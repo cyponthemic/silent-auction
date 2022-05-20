@@ -64,19 +64,33 @@ export default async function handler(req, res) {
         );
     }
 
+    const url = `https://open-mess.vercel.app/auctions/${auctionItem.slug}`;
+    let previousBidderNotification;
+
     if (previousHighest?.notifyOnChange) {
       try {
         const difference = formatCentsToDollars(
           newBid.amount - previousHighest.amount
         );
-        await sendSms(
+
+        previousBidderNotification = sendSms(
           previousHighest.phone,
-          `Your bid for "${auctionItem.name}" has been beaten by ${difference}`
+          `Your bid for "${auctionItem.name}" has been beaten by ${difference}. ${url}`
         );
       } catch (e) {
         console.error("Failed to send SMS", e);
       }
     }
+
+    const currentBid = formatCentsToDollars(newBid.amount);
+
+    await Promise.all([
+      previousBidderNotification,
+      sendSms(
+        newBid.phone,
+        `Your bid of ${currentBid} has been received for "${auctionItem.name}". ${url}`
+      ),
+    ]);
 
     // Respond with created item
     return res.status(200).json(newBid);

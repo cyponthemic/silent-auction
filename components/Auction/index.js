@@ -2,12 +2,18 @@ import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
 import AuctionFeed from "./AuctionFeed";
 import AuctionFeedHeader from "./AuctionFeedHeader";
 import AuctionHeader from "./AuctionHeader";
+import Head from "next/head";
 
 const Auction = ({ blok }) => {
   const canBid = !blok.is_live_auction;
 
   return (
     <>
+      <Head>
+        <title>{blok.title} - Open Mess</title>
+        <meta property="og:image" content={blok?.images[0]?.filename} />
+      </Head>
+
       <AuctionHeader story={blok} />
 
       {canBid && (

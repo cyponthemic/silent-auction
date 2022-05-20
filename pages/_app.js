@@ -9,6 +9,7 @@ import AuctionListing from "../components/AuctionListing";
 import Hero from "../components/Hero";
 import { SWRConfig } from "swr";
 import axios from "axios";
+import Head from "next/head";
 
 const components = {
   feature: Feature,
@@ -40,6 +41,20 @@ function MyApp({ Component, pageProps }) {
         fetcher: (url) => axios.get(url).then((res) => res.data),
       }}
     >
+      <Head>
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+      </Head>
       <Component {...pageProps} />
     </SWRConfig>
   );

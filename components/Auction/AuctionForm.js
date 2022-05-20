@@ -1,6 +1,7 @@
 import { Switch } from "@headlessui/react";
 import Joi from "joi";
 import axios from "axios";
+import { InformationCircleIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 import { joiResolver } from "@hookform/resolvers/joi";
 import { classNames } from "../../lib/utils/class-names";
@@ -228,6 +229,29 @@ export default function AuctionForm() {
             </div>
           </div>
         </div>
+
+        <div className="sm:col-span-2 rounded-md bg-blue-50 p-4">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <InformationCircleIcon className="h-5 w-5 text-blue-400" />
+            </div>
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-blue-800">
+                Terms and conditions
+              </h3>
+              <div className="mt-2 text-sm text-blue-700">
+                <ul role="list" className="list-disc pl-5 space-y-1">
+                  <li>Your password must be at least 8 characters</li>
+                  <li>
+                    Your password must include at least one pro wrestling
+                    finishing move
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="sm:col-span-2">
           {errors.api && <p className="text-red-500">{errors.api.message}</p>}
         </div>

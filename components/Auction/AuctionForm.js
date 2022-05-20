@@ -106,7 +106,11 @@ export default function AuctionForm() {
               type="text"
               id="name"
               autoComplete="name"
-              className="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+              disabled={isSubmitting}
+              className={classNames(
+                "py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md",
+                isSubmitting && "bg-gray-50"
+              )}
               {...register("name")}
             />
           </div>
@@ -133,10 +137,14 @@ export default function AuctionForm() {
               </select>
             </div>
             <input
-              type="text"
+              type="tel"
               id="phone-number"
               autoComplete="tel"
-              className="py-3 px-4 block w-full pl-20 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+              disabled={isSubmitting}
+              className={classNames(
+                "py-3 px-4 block w-full pl-20 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md",
+                isSubmitting && "bg-gray-50"
+              )}
               placeholder="04"
               {...register("phone")}
             />
@@ -170,7 +178,11 @@ export default function AuctionForm() {
               type="number"
               id="price"
               step="any"
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full py-3 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
+              disabled={isSubmitting}
+              className={classNames(
+                "focus:ring-indigo-500 focus:border-indigo-500 block w-full py-3 pl-7 pr-12 sm:text-sm border-gray-300 rounded-md",
+                isSubmitting && "bg-gray-50"
+              )}
               placeholder="0.00"
               aria-describedby="price-currency"
               {...register("amount", {

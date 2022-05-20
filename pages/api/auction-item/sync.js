@@ -56,5 +56,16 @@ export default async function handler(req, res) {
 
   await prisma.$transaction(actions);
 
-  return res.status(200).json(`${auctionItems.length} items imported`);
+  const extraItems = await prisma.auctionItem.findMany({
+    where: {
+      storyblokUuid: {
+        notIn: auctionItems.map((item) => item.storyblokUuid),
+      },
+    },
+  });
+
+  return res.status(200).json({
+    result: `${auctionItems.length} items imported`,
+    extras: extraItems,
+  });
 }

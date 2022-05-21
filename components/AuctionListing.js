@@ -25,7 +25,7 @@ export default function AuctionListing({ blok }) {
             {blok.description}
           </p>
         </div>
-        <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
+        <div className="mt-16 md:mt-24 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
           {auctions.map((auction) => (
             <div
               key={auction.id}

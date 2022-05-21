@@ -10,6 +10,7 @@ import Hero from "../components/Hero";
 import { SWRConfig } from "swr";
 import axios from "axios";
 import Head from "next/head";
+import Nav from "../components/Nav";
 
 const components = {
   feature: Feature,
@@ -55,6 +56,7 @@ function MyApp({ Component, pageProps }) {
           href="/favicon-16x16.png"
         />
       </Head>
+      <Nav />
       <Component {...pageProps} />
     </SWRConfig>
   );

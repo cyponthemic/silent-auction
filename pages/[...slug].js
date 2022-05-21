@@ -83,6 +83,7 @@ async function getAuctionItemByStoryblokUuid(storyblokUuid) {
 
   return {
     ...item,
+    closesAt: item.closesAt.toISOString(), // Date times can't be serialised
     bids: (item.bids ?? []).map((bid) => ({
       ...bid,
       createdAt: bid.createdAt.toISOString(), // Date times can't be serialised

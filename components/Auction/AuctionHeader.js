@@ -7,9 +7,16 @@ import {
   getImageWidth,
   storyblokImageLoader,
 } from "../../lib/image-loader";
+import { isPast, parseISO } from "date-fns";
+import { useAuctionContext } from "../../lib/context/auction";
 
 export default function AuctionHeader({ story }) {
   const canBid = !story.is_live_auction;
+
+  const { closesAt } = useAuctionContext();
+
+  const closesAtDate = closesAt ? parseISO(closesAt) : null;
+  const hasClosed = closesAtDate ? isPast(closesAtDate) : false;
 
   return (
     <div className="relative bg-gray-50">
@@ -36,9 +43,26 @@ export default function AuctionHeader({ story }) {
             </div>
 
             {canBid ? (
-              <div className="mt-12">
-                <AuctionForm story={story} />
-              </div>
+              <>
+                {hasClosed ? (
+                  <div className="mt-12 rounded-md bg-blue-50 p-4">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <InformationCircleIcon className="h-5 w-5 text-blue-400" />
+                      </div>
+                      <div className="ml-3">
+                        <h3 className="text-sm font-medium text-blue-800">
+                          Sorry, bidding for this item has closed
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-12">
+                    <AuctionForm story={story} />
+                  </div>
+                )}
+              </>
             ) : (
               <div className="mt-12 rounded-md bg-blue-50 p-4">
                 <div className="flex">

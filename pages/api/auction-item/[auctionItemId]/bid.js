@@ -3,6 +3,7 @@ import prisma from "../../../../lib/prisma";
 import { formatCentsToDollars } from "../../../../lib/money/format";
 import { sendSms } from "../../../../lib/sms";
 import { getCreateBidSchema } from "../../../../lib/services/bid";
+import { isPast } from "date-fns";
 
 const createBidSchema = getCreateBidSchema(Joi);
 
@@ -30,6 +31,11 @@ export default async function handler(req, res) {
 
   if (!auctionItem) {
     return res.status(404).json("Not found");
+  }
+
+  // Check if bidding has closed
+  if (isPast(auctionItem.closesAt)) {
+    return res.status(400).json("Sorry, bidding has closed for this item.");
   }
 
   try {

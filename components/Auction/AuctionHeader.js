@@ -37,7 +37,7 @@ export default function AuctionHeader({ story }) {
 
             {canBid ? (
               <div className="mt-12">
-                <AuctionForm />
+                <AuctionForm story={story} />
               </div>
             ) : (
               <div className="mt-12 rounded-md bg-blue-50 p-4">
@@ -60,8 +60,6 @@ export default function AuctionHeader({ story }) {
           <Image
             className="absolute inset-0 w-full h-full object-cover object-center"
             src={story?.images[0]?.filename}
-            width={getImageWidth(story?.images[0]?.filename)}
-            height={getImageHeight(story?.images[0]?.filename)}
             layout="fill"
             loader={storyblokImageLoader}
             alt={story?.images[0]?.alt}

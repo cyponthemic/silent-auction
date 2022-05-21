@@ -14,7 +14,7 @@ import SuccessModal from "./SuccessModal";
 
 const createBidSchema = getCreateBidSchema(Joi);
 
-export default function AuctionForm() {
+export default function AuctionForm({ story }) {
   const { mutate } = useSWRConfig();
   const { id, storyblokUuid, startingBid, bids } = useAuctionContext();
 
@@ -241,10 +241,15 @@ export default function AuctionForm() {
               </h3>
               <div className="mt-2 text-sm text-blue-700">
                 <ul role="list" className="list-disc pl-5 space-y-1">
-                  <li>
-                    Pickup in Fitzroy North, or $25 for delivery within
-                    Melbourne only
-                  </li>
+                  {story.delivery_terms && story.delivery_terms.length > 0 ? (
+                    <li>{story.delivery_terms}</li>
+                  ) : (
+                    <li>
+                      Pickup in Fitzroy North, or delivery available at an
+                      addition cost based on your location and the item's
+                      dimensions, weight, and value
+                    </li>
+                  )}
                   <li>
                     Pay by donation to specified fund (we&apos;ll text you if
                     you win)

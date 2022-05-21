@@ -38,12 +38,6 @@ export default function AuctionListing({ blok }) {
                       <Image
                         className="object-cover object-center"
                         src={auction.content.images[0].filename}
-                        width={getImageWidth(
-                          auction.content.images[0].filename
-                        )}
-                        height={getImageHeight(
-                          auction.content.images[0].filename
-                        )}
                         layout="fill"
                         loader={storyblokImageLoader}
                         alt={auction.content.images[0].alt}

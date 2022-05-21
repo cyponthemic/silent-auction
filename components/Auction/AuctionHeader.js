@@ -1,6 +1,12 @@
 import Image from "next/image";
 import { render as renderRichText } from "storyblok-rich-text-react-renderer";
 import AuctionForm from "./AuctionForm";
+import { InformationCircleIcon } from "@heroicons/react/solid";
+import {
+  getImageHeight,
+  getImageWidth,
+  storyblokImageLoader,
+} from "../../lib/image-loader";
 
 export default function AuctionHeader({ story }) {
   const canBid = !story.is_live_auction;
@@ -29,9 +35,22 @@ export default function AuctionHeader({ story }) {
               {renderRichText(story.description)}
             </div>
 
-            {canBid && (
+            {canBid ? (
               <div className="mt-12">
                 <AuctionForm />
+              </div>
+            ) : (
+              <div className="mt-12 rounded-md bg-blue-50 p-4">
+                <div className="flex">
+                  <div className="flex-shrink-0">
+                    <InformationCircleIcon className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <div className="ml-3">
+                    <h3 className="text-sm font-medium text-blue-800">
+                      Available for live auction at Open Mess
+                    </h3>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -39,18 +58,26 @@ export default function AuctionHeader({ story }) {
 
         <div className="hidden lg:block relative w-full h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 lg:h-full">
           <Image
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             src={story?.images[0]?.filename}
+            width={getImageWidth(story?.images[0]?.filename)}
+            height={getImageHeight(story?.images[0]?.filename)}
             layout="fill"
-            alt=""
+            loader={storyblokImageLoader}
+            alt={story?.images[0]?.alt}
           />
         </div>
 
-        <img
-          className="w-full h-auto lg:hidden"
-          src={story?.images[0]?.filename}
-          alt=""
-        />
+        <div className="lg:hidden">
+          <Image
+            src={story?.images[0]?.filename}
+            width={getImageWidth(story?.images[0]?.filename)}
+            height={getImageHeight(story?.images[0]?.filename)}
+            layout="responsive"
+            loader={storyblokImageLoader}
+            alt={story?.images[0]?.alt}
+          />
+        </div>
       </main>
     </div>
   );

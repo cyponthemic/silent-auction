@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { useAuctionsContext } from "../context/AuctionsContext";
 import { classNames } from "../lib/utils/class-names";
+import Image from "next/image";
+import {
+  getImageHeight,
+  getImageWidth,
+  storyblokImageLoader,
+} from "../lib/image-loader";
 
 export default function AuctionListing({ blok }) {
   const { auctions } = useAuctionsContext();
@@ -28,11 +34,21 @@ export default function AuctionListing({ blok }) {
               <Link href={`/${auction.full_slug}`} className="flex-shrink-0">
                 <a>
                   {auction.content.images.length > 0 && (
-                    <img
-                      className="h-64 w-full object-cover"
-                      src={auction.content.images[0].filename}
-                      alt=""
-                    />
+                    <span className="block relative h-64 w-full overflow-hidden">
+                      <Image
+                        className="object-cover object-center"
+                        src={auction.content.images[0].filename}
+                        width={getImageWidth(
+                          auction.content.images[0].filename
+                        )}
+                        height={getImageHeight(
+                          auction.content.images[0].filename
+                        )}
+                        layout="fill"
+                        loader={storyblokImageLoader}
+                        alt={auction.content.images[0].alt}
+                      />
+                    </span>
                   )}
                 </a>
               </Link>

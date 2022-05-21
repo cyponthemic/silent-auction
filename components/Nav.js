@@ -35,16 +35,6 @@ export default function Nav() {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  {/*<img*/}
-                  {/*  className="block lg:hidden h-8 w-auto"*/}
-                  {/*  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"*/}
-                  {/*  alt="Workflow"*/}
-                  {/*/>*/}
-                  {/*<img*/}
-                  {/*  className="hidden lg:block h-8 w-auto"*/}
-                  {/*  src={}*/}
-                  {/*  alt="Workflow"*/}
-                  {/*/>*/}
                   <div className="relative h-8 w-8">
                     <Image src={OMLogo} layout="responsive" priority />
                   </div>
@@ -70,34 +60,18 @@ export default function Nav() {
           <Disclosure.Panel className="sm:hidden">
             <div className="pt-2 pb-4 space-y-1">
               {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Dashboard
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Team
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Projects
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
-                className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
-              >
-                Calendar
-              </Disclosure.Button>
+              <Link href="/">
+                <Disclosure.Button
+                  as="a"
+                  className={classNames(
+                    router.route === "/"
+                      ? "bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                      : "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                  )}
+                >
+                  Auction Items
+                </Disclosure.Button>
+              </Link>
             </div>
           </Disclosure.Panel>
         </>

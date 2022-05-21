@@ -9,6 +9,7 @@
     "lint": "next lint",
     "format": "prettier --write . && prisma format",
     "prepare": "husky install",
+    "postinstall": "prisma generate",
     "pull-components": "storyblok pull-components --space=156827",
     "generate-sb-types": "storyblok-generate-ts source=./components.156827.json target=./component-types-sb"
   },

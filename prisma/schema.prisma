@@ -19,6 +19,8 @@ model AuctionItem {
   slug        String
   startingBid Int    @default(5000)
 
+  closesAt DateTime @default("2022-05-22T07:00:00.000Z")
+
   bids Bid[]
 }
 

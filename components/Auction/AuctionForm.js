@@ -246,7 +246,7 @@ export default function AuctionForm({ story }) {
                   ) : (
                     <li>
                       Pickup in Fitzroy North, or delivery available at an
-                      addition cost based on your location and the item's
+                      addition cost based on your location and the item&apos;s
                       dimensions, weight, and value
                     </li>
                   )}

@@ -90,13 +90,24 @@ export default async function handler(req, res) {
 
     const currentBid = formatCentsToDollars(newBid.amount);
 
-    await Promise.all([
-      previousBidderNotification,
-      sendSms(
-        newBid.phone,
-        `Your bid of ${currentBid} has been received for "${auctionItem.name}". ${url}`
-      ),
-    ]);
+    try {
+      await Promise.all([
+        previousBidderNotification,
+        sendSms(
+          newBid.phone,
+          `Your bid of ${currentBid} has been received for "${auctionItem.name}". ${url}`
+        ),
+      ]);
+    } catch (e) {
+      try {
+        await sendSms(
+          "+61405251749",
+          `Failed to send SMS for "${auctionItem.name}" ${currentBid}`
+        );
+      } catch (e) {
+        console.error("Failed to send backup notification");
+      }
+    }
 
     // Respond with created item
     return res.status(200).json(newBid);
